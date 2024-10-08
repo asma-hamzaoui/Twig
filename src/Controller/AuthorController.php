@@ -10,13 +10,13 @@ class AuthorController extends AbstractController
 
 
 {
-    private $authorRepository;
+    private $AuthorRepository;
 
-    public function __construct(AuthorRepository $authorRepository)
+    public function __construct(AuthorRepository $AuthorRepository)
     {
-        $this->authorRepository = $authorRepository;
+        $this->AuthorRepository = $AuthorRepository;
     }
-    // private array $authors;
+    // private array $Authors;
 
     // public function __construct()
     // {
