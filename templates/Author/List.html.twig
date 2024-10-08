@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Authors List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Verdana', sans-serif; /* Changement de police */
+            background-color: #e0f7fa; /* Couleur de fond plus claire */
+            color: #333; /* Couleur de texte principale */
+        }
+        table {
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff; /* Fond de la table */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+        }
+
+        th, td {
+            padding: 15px 20px; /* Rembourrage ajusté */
+            text-align: center;
+            border: 2px solid #bbb; /* Bordure plus douce */
+        }
+
+        th {
+            background-color: #00796b; /* Couleur d'en-tête plus foncée */
+            color: white; /* Texte d'en-tête en blanc */
+        }
+
+        tr:hover {
+            background-color: #b2dfdb; /* Couleur de survol plus douce */
+        }
+
+        img {
+            border-radius: 10px; /* Arrondi plus prononcé */
+        }
+
+        a {
+            text-decoration: none;
+            color: #ff5722; /* Couleur des liens */
+            font-weight: bold;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background-color: #ffffff; /* Fond des cartes */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+            width: 200px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .card h2 {
+            margin: 0;
+            font-size: 40px;
+            color: #00796b; /* Couleur des titres des cartes */
+        }
+
+        .card p {
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            color: #555; /* Couleur du texte des cartes */
+        }
+
+        .card i {
+            font-size: 40px;
+            color: #00796b; /* Couleur des icônes */
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            text-align: center; /* Centre le titre */
+            color: #00796b; /* Couleur du titre */
+        }
+    </style>
+</head>
+<body>
+
+    <h1>La liste</h1> <!-- Ajout du titre ici -->
+
+    {% if authors is not defined or authors is empty %}
+        <h2>Liste d'auteurs n'est pas disponible</h2>
+    {% else %}
+        <table>
+            <tr>
+                <th>Picture</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Number of Books</th>
+                <th>Details</th>
+            </tr>
+
+            {% set somme = 0 %}
+            {% for author in authors %}
+                <tr>
+                    <td><img src="{{ asset(author.image) }}" width="100" height="100"></td>
+                    <td>{{ author.userName | upper }}</td>
+                    <td>{{ author.email }}</td>
+                    <td>{{ author.nbBooks }}</td>
+                    <td><a href="{{ path('show_author', { 'id': author.id }) }}">Details</a></td>
+                </tr>
+                {% set somme = somme + author.nbBooks %}
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <div class="container">
+        <div class="card">
+            <p>Number of Authors</p>
+            <br><br>
+            <i class="fa fa-users"></i>
+            <h2>{{ authors | length }}</h2>
+        </div>
+        <div class="card">
+            <p>Total Books</p>
+            <br><br>
+            <i class="fa fa-book"></i>
+            <h2>{{ somme }}</h2>
+        </div>
+    </div>
+
+</body>
+</html>
